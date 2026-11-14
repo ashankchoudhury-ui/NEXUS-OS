@@ -34,10 +34,67 @@ header{height:52px;display:flex;align-items:center;justify-content:space-between
 @media(max-width:980px){.grid{grid-template-columns:1fr 1fr}.col:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}.col:last-child .box:last-child{grid-column:1/-1}}
 @media(max-width:620px){.frame{padding:9px 8px 16px}header{height:auto;min-height:48px}.header-right{gap:8px;font-size:9px}.mast{font-size:8px;flex-wrap:wrap}.grid{grid-template-columns:1fr}.col:last-child{grid-column:auto;display:flex}.col:last-child .box:last-child{grid-column:auto}.world{height:230px}.digits{font-size:66px}.footer{font-size:8px}.title{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important}}
+
+/* LANDSCAPE TERMINAL RECONSTRUCTION */
+:root{--bg:#030806;--fg:#9bd8a5;--bright:#d9ffe0;--green:#66ff83;--dim:#568d61;--faint:#1b4224;--cyan:#8be7ed}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-size:clamp(10px,.78vw,13px);background:#020704}
+.frame{width:100%;height:100dvh;max-width:none;margin:0;padding:clamp(7px,1vw,15px);display:flex;flex-direction:column;overflow:hidden}
+header{flex:0 0 42px;height:42px;padding:0 4px 7px}
+.brand .sigil{font-size:29px}.wordmark{font-size:27px}.wordmark small{font-size:8px;margin-top:5px}
+.header-right{font-size:9px;gap:15px}
+.mast{flex:0 0 25px;padding:5px 4px;font-size:9px}
+.grid{flex:1;min-height:0;grid-template-columns:1.08fr 1fr .92fr;gap:7px;margin-top:7px}
+.col{min-height:0;gap:7px}
+.box{min-height:0;display:flex;flex-direction:column;border-color:#39744a;background:rgba(2,10,5,.93);box-shadow:none}
+.title{flex:0 0 23px;height:23px;font-size:9px;padding:0 7px}
+.content{padding:7px;min-height:0}
+.world{height:auto;flex:1;min-height:120px}
+.col:first-child .box:first-child{flex:1.35}
+.col:first-child .box:nth-child(2){flex:.78}
+.col:first-child .box:nth-child(3){flex:.7}
+.col:nth-child(2) .box:first-child{flex:1.05}
+.col:nth-child(2) .box:nth-child(2){flex:.62}
+.col:nth-child(2) .box:nth-child(3){flex:.72}
+.col:last-child .box:first-child{flex:.95}
+.col:last-child .box:nth-child(2){flex:1.1}
+.col:last-child .box:nth-child(3){flex:.55}
+.log{height:auto;flex:1;font-size:clamp(8px,.66vw,10px);line-height:1.5}
+.code{font-size:clamp(8px,.67vw,10px);line-height:1.45}
+.hex{font-size:clamp(8px,.65vw,10px);line-height:1.48}
+.terminal{flex:1}
+.terminal-output{min-height:0;max-height:none;font-size:10px;padding:7px}
+.countdown{padding:3px 0 6px}
+.digits{font-size:clamp(43px,5.1vw,75px)}
+.footer{flex:0 0 22px;margin-top:6px;padding:5px 3px 0;font-size:8px}
+.monitor-row{margin:7px 0;font-size:9px;grid-template-columns:55px 1fr 29px}
+.spark{height:20px}
+.progress-item{margin:7px 0}
+#fullscreen{font:9px var(--mono);padding:5px 8px;background:#07170b;color:var(--green);border:1px solid #39744a}
+#keydeck{flex:0 0 34px;display:flex;align-items:center;justify-content:center;gap:7px;border-top:1px solid #245b32;margin-top:5px;padding-top:5px}
+#keydeck button{height:25px;min-width:42px;padding:0 10px;border:1px solid #39744a;background:#06140a;color:#a5eab0;font:10px var(--mono);letter-spacing:.5px}
+#keydeck button:active{background:#174d27;color:white}
+#rotate{display:none}
+@media(orientation:portrait){
+ html,body{overflow:hidden}
+ .frame{filter:blur(3px);pointer-events:none}
+ #rotate{display:flex;position:fixed;z-index:30;inset:0;background:#020704;color:#a5ffb3;align-items:center;justify-content:center;text-align:center;padding:28px;flex-direction:column;gap:14px;font-family:var(--mono)}
+ #rotate .rotate-icon{font-size:50px;color:#66ff83}
+ #rotate strong{font-size:17px;letter-spacing:2px}
+ #rotate span{font-size:11px;line-height:1.7;color:#679b71;max-width:260px}
+ #rotate button{background:#07170b;border:1px solid #39744a;color:#9bffad;padding:10px 18px;font:11px var(--mono)}
+}
+@media(orientation:landscape) and (max-height:480px){
+ header{flex-basis:32px;height:32px}.brand .sigil{font-size:23px}.wordmark{font-size:21px}.wordmark small{font-size:7px}
+ .mast{flex-basis:20px;font-size:8px}.grid{gap:5px;margin-top:5px}.col{gap:5px}.title{flex-basis:19px;height:19px;font-size:8px}
+ #keydeck{flex-basis:28px;margin-top:3px;padding-top:3px}#keydeck button{height:21px}
+ .footer{display:none}.world{min-height:85px}.content{padding:5px}.log{font-size:8px}.code,.hex{font-size:7.5px}
+}
+
 </style>
 </head>
 <body><canvas id="rain"></canvas><div class="frame">
-<header><div class="brand"><div class="sigil">⌁</div><div class="wordmark">NEXUS<small>FUTURE SYSTEM // COMMAND INTERFACE</small></div></div><div class="header-right"><div><span class="led"></span><span class="live">SYSTEM ONLINE</span><br><span id="clock">00:00:00</span></div><div>BUILD <b style="color:var(--fg)">04.27</b><br>MODE <b style="color:var(--fg)">OPERATOR</b></div></div></header>
+<header><div class="brand"><div class="sigil">⌁</div><div class="wordmark">NEXUS<small>FUTURE SYSTEM // COMMAND INTERFACE</small></div></div><div class="header-right"><div><span class="led"></span><span class="live">SYSTEM ONLINE</span><br><span id="clock">00:00:00</span></div><div>BUILD <b style="color:var(--fg)">04.27</b><br>MODE <b style="color:var(--fg)">OPERATOR</b></div><button id="fullscreen" type="button">⛶ FULLSCREEN</button></div></header>
 <div class="mast"><span>HOST: <b>NX-LOCAL</b></span><span>SESSION: <b>ACTIVE</b></span><span>NETWORK: <b>SIMULATED</b></span><span>UPTIME: <b id="uptime">00:00:00</b></span><span>SECURITY: <b class="live">NOMINAL</b></span></div>
 <main class="grid">
 <section class="col">
@@ -86,8 +143,10 @@ header{height:52px;display:flex;align-items:center;justify-content:space-between
 <div class="box"><div class="title"><span>SECURITY STATUS</span><span class="live">● NOMINAL</span></div><div class="content" style="font-size:11px;line-height:1.9"><div>FIREWALL <span style="float:right" class="ok">ACTIVE*</span></div><div>ENCRYPTION <span style="float:right" class="ok">AES-256*</span></div><div>THREAT LEVEL <span style="float:right" class="ok">LOW*</span></div><div style="color:var(--dim);font-size:9px;margin-top:5px">* VISUAL PLACEHOLDER STATUS</div></div></div>
 </section>
 </main>
+<div id="keydeck" aria-label="Terminal control keys"><button data-key="ESC">ESC</button><button data-key="SPACE">Ⅱ / SPACE</button><button data-key="+">＋ SPEED</button><button data-key="-">－ SPEED</button><button data-key="r">R RESET</button><button data-key="?">? HELP</button></div>
 <footer class="footer"><span>NEXUS FUTURE SYSTEM <b>// OPERATOR CONSOLE</b></span><span>VISUAL SIMULATION · NO REAL NETWORK ACCESS</span><span id="date">--</span></footer>
 </div>
+<div id="rotate"><div class="rotate-icon">↻</div><strong>ROTATE DEVICE</strong><span>NEXUS is designed as a wide-screen operator terminal. Turn your phone sideways for the full interface.</span><button id="rotate-fullscreen">TRY FULLSCREEN</button></div>
 <script>
 const $=id=>document.getElementById(id);
 const start=Date.now();
@@ -106,6 +165,24 @@ clear(){$('out').innerHTML='';write('Terminal buffer cleared.','ok')}
 };
 function write(text,cls=''){const el=document.createElement('div');el.className='termline '+cls;el.textContent=text;$('out').append(el);$('out').scrollTop=$('out').scrollHeight}
 $('form').addEventListener('submit',e=>{e.preventDefault();const value=$('cmd').value.trim();if(!value)return;write('root@nexus:~# '+value,'prompt');const fn=commands[value.toLowerCase()];if(fn)fn();else write('Unknown command: '+value+' — type help','warn');$('cmd').value=''});
+
+const fsButton=$('fullscreen');
+async function enterFullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock){try{await screen.orientation.lock('landscape')}catch(e){}}}catch(e){write('Fullscreen is unavailable in this browser.','warn')}}
+fsButton.addEventListener('click',enterFullscreen);
+$('rotate-fullscreen').addEventListener('click',enterFullscreen);
+document.addEventListener('fullscreenchange',()=>{fsButton.textContent=document.fullscreenElement?'⛶ EXIT FULLSCREEN':'⛶ FULLSCREEN';if(!document.fullscreenElement&&screen.orientation?.unlock)screen.orientation.unlock()});
+let speed=1;
+function keyAction(key){
+ if(key==='ESC'){if(document.fullscreenElement)document.exitFullscreen();else $('cmd').blur();return}
+ if(key==='SPACE'){write('DISPLAY PAUSE / RESUME CONTROL','info');return}
+ if(key==='+'){speed=Math.min(4,speed+1);write('VISUAL SPEED: '+speed+'x','info');return}
+ if(key==='-'){speed=Math.max(1,speed-1);write('VISUAL SPEED: '+speed+'x','info');return}
+ if(key==='r'){write('SESSION DISPLAY RESET','ok');return}
+ if(key==='?'){commands.help();return}
+}
+document.querySelectorAll('#keydeck button').forEach(b=>b.addEventListener('click',()=>keyAction(b.dataset.key)));
+document.addEventListener('keydown',e=>{if(['Escape',' ','+','-','r','?'].includes(e.key)&&document.activeElement!==$('cmd')){e.preventDefault();keyAction(e.key==='Escape'?'ESC':e.key===' '?'SPACE':e.key)}});
+
 const c=$('rain'),ctx=c.getContext('2d');let drops=[];function resize(){c.width=innerWidth/2;c.height=innerHeight/2;const n=Math.floor(c.width/15);drops=Array.from({length:n},()=>Math.random()*c.height/14)}resize();addEventListener('resize',resize);function rain(){ctx.fillStyle='rgba(2,7,4,.12)';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#42ff65';ctx.font='12px monospace';for(let i=0;i<drops.length;i++){const ch=String.fromCharCode(0x30a0+Math.random()*96);ctx.fillText(ch,i*15,drops[i]*14);if(drops[i]*14>c.height&&Math.random()>.975)drops[i]=0;drops[i]+=.45}requestAnimationFrame(rain)}rain();
 </script>
 </body></html>
