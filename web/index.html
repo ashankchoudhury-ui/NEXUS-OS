@@ -1,86 +1,58 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#241316"><title>NEXUS // SENSOR</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#28191b"><title>N/X — NEXUS SENSOR ARRAY</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
-:root{--bg:#251417;--fg:#d8c8b8;--muted:#a18c82;--pink:#a65370;--grid:rgba(220,199,180,.075);--hair:rgba(220,199,180,.32)}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#120b0e;color:var(--fg);font-family:'Silkscreen','IBM Plex Mono',monospace}body{display:flex;justify-content:center}.device{width:min(100vw,430px);height:100svh;min-height:600px;position:relative;overflow:hidden;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:10px 10px;padding:calc(env(safe-area-inset-top) + 7px) 17px calc(env(safe-area-inset-bottom) + 10px);display:flex;flex-direction:column}.status{height:22px;flex:none;display:flex;align-items:center;justify-content:space-between;font:7px 'Silkscreen',monospace;color:#c7b8aa}.status .icons{display:flex;align-items:center;gap:6px}.battery{width:17px;height:8px;border:1px solid #c7b8aa;padding:1px;position:relative}.battery:after{content:'';position:absolute;right:-3px;top:2px;width:2px;height:3px;background:#c7b8aa}.battery i{display:block;width:25%;height:100%;background:var(--pink)}.topline{height:23px;flex:none;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--hair);font-size:8px;letter-spacing:.06em}.topline b{color:var(--pink);font-weight:400}.visual{height:clamp(205px,30vh,260px);position:relative;flex:none;margin-top:7px}.visual canvas{width:100%;height:100%;display:block;image-rendering:pixelated}.bracket{position:absolute;top:12px;left:3px;width:28px;height:40px;border-left:1px solid var(--hair);border-top:1px solid var(--hair);font-size:6px;padding:4px;color:var(--muted)}.bracket.right{left:auto;right:3px;border-left:0;border-right:1px solid var(--hair);border-top:1px solid var(--hair);text-align:right}.bracket.bottom{top:auto;bottom:13px;left:auto;right:3px;width:48px;height:18px;border:0;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)}.micro{position:absolute;left:4px;bottom:17px;font-size:6px;line-height:1.5;color:var(--muted);letter-spacing:.04em}.tinyline{height:12px;flex:none;border-top:1px solid var(--hair);display:flex;align-items:center;justify-content:space-between;font-size:6px;letter-spacing:.11em;color:var(--muted)}.pixelband{height:54px;flex:none;display:grid;grid-template-columns:repeat(29,1fr);grid-template-rows:repeat(4,1fr);gap:2px 3px;padding:5px 0 3px}.pixelband i{display:block;border:1px solid rgba(216,200,184,.55);height:7px;align-self:center;opacity:.65}.pixelband i.lit{background:rgba(216,200,184,.55)}.pixelband i.hot{background:var(--pink);border-color:var(--pink);opacity:1}.codes{flex:none;text-align:center;font-family:'Silkscreen',monospace;font-size:clamp(8px,2.45vw,10px);letter-spacing:.09em;line-height:1.8;white-space:nowrap;padding:4px 0 7px;color:#dfd0c0}.dotmatrix{flex:1;min-height:65px;display:grid;grid-template-columns:repeat(23,1fr);grid-auto-rows:5px;gap:5px 4px;align-content:stretch;padding:3px 1px 7px}.dotmatrix i{width:2px;height:2px;border-radius:50%;background:#d8c8b8;opacity:.32;justify-self:center;align-self:center}.dotmatrix i.lit{opacity:.82}.dotmatrix i.hot{background:var(--pink);opacity:1}.divider{height:11px;flex:none;border-bottom:1px solid var(--hair);display:grid;grid-template-columns:repeat(29,1fr);gap:3px}.divider i{height:6px;border:1px solid #cdbba9;opacity:.65}.readhead{height:26px;flex:none;display:flex;align-items:center;justify-content:space-between;font-size:7px;letter-spacing:.07em}.readhead span:last-child{color:var(--pink)}.readouts{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;flex:none}.read{height:29px;border-top:1px solid rgba(216,200,184,.15);display:flex;justify-content:space-between;align-items:center;font-family:'Silkscreen',monospace;font-size:6px;color:#c4b3a5;letter-spacing:0}.read strong{font-family:'Silkscreen',monospace;font-size:17px;line-height:1;font-weight:400;color:#e1d2c3;letter-spacing:-.06em}.read strong.pink{color:var(--pink)}.foot{flex:none;border-top:1px solid var(--hair);margin-top:5px;padding-top:6px;display:flex;justify-content:space-between;font-family:'Silkscreen',monospace;font-size:5px;letter-spacing:0;color:var(--muted)}.home{width:65px;height:3px;background:#d8c8b8;border-radius:3px;opacity:.75;margin:10px auto 0;flex:none}
-.visual:after{content:"";position:absolute;left:0;right:0;top:-12%;height:1px;background:linear-gradient(90deg,transparent,rgba(198,112,139,.08),rgba(228,205,184,.7),rgba(198,112,139,.12),transparent);box-shadow:0 0 8px rgba(198,112,139,.3);pointer-events:none;animation:sweep 6.8s linear infinite}
-.visual:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(10,5,7,.08) 6px);opacity:.45}
-@keyframes sweep{0%{top:-5%;opacity:0}8%{opacity:.8}92%{opacity:.8}100%{top:105%;opacity:0}}
-.pixelband i{animation:pixelPulse 3.7s steps(2,end) infinite;animation-delay:calc(var(--d,0)*-90ms)}
-.pixelband i:nth-child(7n){--d:3}.pixelband i:nth-child(11n){--d:7}
-.dotmatrix i{animation:dotBlink 5s steps(2,end) infinite;animation-delay:calc(var(--d,0)*-110ms)}
-.dotmatrix i:nth-child(9n){--d:4}.dotmatrix i:nth-child(17n){--d:8}
-@keyframes pixelPulse{0%,78%,100%{opacity:.38}82%{opacity:1}86%{opacity:.55}}
-@keyframes dotBlink{0%,86%,100%{opacity:.22}90%{opacity:.95}94%{opacity:.35}}
-.read strong{transition:color .2s,text-shadow .2s}.read strong.pulse{color:var(--pink);text-shadow:0 0 7px rgba(166,83,112,.55)}
-@media(prefers-reduced-motion:reduce){.visual:after,.pixelband i,.dotmatrix i{animation:none!important}}
-@media(min-width:600px){.device{height:min(900px,96svh);margin:2svh auto;border:1px solid #61404a;box-shadow:0 15px 60px #000}}
-
-.device{background-image:linear-gradient(rgba(220,201,185,.065) 1px,transparent 1px),linear-gradient(90deg,rgba(220,201,185,.065) 1px,transparent 1px),radial-gradient(ellipse at 50% 35%,rgba(111,49,66,.22),transparent 65%);background-size:8px 8px,8px 8px,100% 100%}
-.device:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:8;opacity:.16;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.2) 3px)}
-.visual{border-bottom:1px solid var(--hair);isolation:isolate}
-.visual:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent 49.8%,rgba(220,201,185,.12) 50%,transparent 50.2%),linear-gradient(0deg,transparent 49.8%,rgba(220,201,185,.12) 50%,transparent 50.2%)}
-.terminal-tools{height:27px;flex:none;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--hair);gap:6px;font-size:6px;color:var(--muted);letter-spacing:.06em}
-.terminal-tools .prompt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}.terminal-tools .prompt b{color:var(--pink);font-weight:400}
-.terminal-tools button{border:1px solid rgba(220,201,185,.35);background:transparent;color:var(--fg);padding:5px 7px;font:6px 'IBM Plex Mono',monospace;letter-spacing:.08em}
-.terminal-tools button:active,.terminal-tools button.active{border-color:var(--pink);color:#f1d5df;background:rgba(168,78,112,.14)}
-.log-overlay{position:absolute;inset:0;z-index:20;display:none;flex-direction:column;background:rgba(15,8,10,.97);padding:calc(env(safe-area-inset-top) + 17px) 17px calc(env(safe-area-inset-bottom) + 18px);backdrop-filter:blur(4px)}
-.log-overlay.open{display:flex}.log-head{display:flex;justify-content:space-between;padding:8px 0 12px;border-bottom:1px solid var(--hair);font:8px 'Silkscreen',monospace;color:var(--pink)}
-.log-body{flex:1;overflow:auto;white-space:pre-wrap;font:8px/1.9 'IBM Plex Mono',monospace;color:var(--fg);padding:12px 0}
-.log-actions{display:flex;gap:8px}.log-actions button{flex:1;background:transparent;border:1px solid var(--hair);color:var(--fg);padding:10px 4px;font:7px 'IBM Plex Mono',monospace}
-.live-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--pink);box-shadow:0 0 6px var(--pink);animation:liveblink 1.4s steps(2) infinite}
-@keyframes liveblink{50%{opacity:.2}}
-@media(prefers-reduced-motion:reduce){.device:after,.live-dot{animation:none!important}}
-</style></head><body><main class="device">
-<div class="status"><span id="time">9:41</span><span class="icons">◈ ▴ ▰ <span class="battery"><i></i></span></span></div>
-<div class="topline"><span>⌜ <b>MAP 01</b> / SENSOR DISTRIBUTION</span><span>CORE—07 ⌟</span></div>
-<div class="visual"><div class="bracket">⌜<br>01</div><div class="bracket right">07<br>⌝</div><canvas id="star" width="360" height="260"></canvas><div class="micro">MAP<br>NODE DISTRIBUTION<br>ORBITAL ARRAY</div><div class="bracket bottom">LINK / OK</div></div>
-<div class="tinyline"><span>⌗ PIXEL ARRAY / SIGNAL ROUTING</span><span>SEC—03</span></div>
-<div class="pixelband" id="band"></div>
-<div class="codes">CJGC.ZBL.550.BRD.EBU<br>AYYU.WG0.692.APR.MEY</div>
-<div class="dotmatrix" id="matrix"></div>
-<div class="divider" id="divider"></div>
-<div class="readhead"><span>▦ SENSOR SEC&nbsp; PID</span><span>DIAGNOSTIC</span></div>
-<div class="readouts">
-<div class="read"><span>A: Sensor</span><strong>3925</strong></div><div class="read"><span>CORE / PID</span><strong class="pink">/0</strong></div>
-<div class="read"><span>B: Sensor</span><strong>5615</strong></div><div class="read"><span>MEM / PID</span><strong>00</strong></div>
-<div class="read"><span>C: Sensor</span><strong>7437</strong></div><div class="read"><span>NODE / PID</span><strong>00</strong></div>
-<div class="read"><span>D: Sensor</span><strong>8878</strong></div><div class="read"><span>AGENT / PID</span><strong>00</strong></div>
-</div>
-<div class="foot"><span><i class="live-dot"></i> SELF-TEST · SENSORS CALIBRATED</span><span>N/X—03</span></div><div class="terminal-tools"><span class="prompt"><b>root@nexus</b>:~# <span id="terminalStatus">system monitor active</span><span class="cursor"></span></span><button id="scanAction">SCAN</button><button id="logAction">LOG</button></div>
-<div class="log-overlay" id="logOverlay"><div class="log-head"><span>N/X // EVENT STREAM</span><span id="closeOverlay">[ CLOSE ]</span></div><div class="log-body" id="eventLog"></div><div class="log-actions"><button id="diagAction">RUN SELF-TEST</button><button id="clearLog">CLEAR BUFFER</button></div></div><div class="home"></div>
-</main>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap');
+:root{--bg:#28191b;--ink:#ded2c3;--dim:#a9998d;--line:rgba(220,204,188,.27);--pink:#a24d68;--grid:rgba(220,204,188,.055)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#100b0d;color:var(--ink);font-family:'IBM Plex Mono',monospace}body{display:flex;justify-content:center}
+.screen{width:min(100vw,430px);height:100svh;min-height:560px;position:relative;overflow:hidden;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:8px 8px;padding:calc(env(safe-area-inset-top) + 7px) 16px calc(env(safe-area-inset-bottom) + 8px);display:flex;flex-direction:column;isolation:isolate}
+.screen:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:10;opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.22) 4px)}
+.status{height:18px;flex:none;display:flex;justify-content:space-between;align-items:center;font-size:8px;color:#c9bbae;letter-spacing:.02em}.status-right{display:flex;align-items:center;gap:7px}.signal{height:9px;display:inline-flex;align-items:end;gap:2px}.signal i{display:block;width:2px;background:#c9bbae}.signal i:nth-child(1){height:3px}.signal i:nth-child(2){height:5px}.signal i:nth-child(3){height:7px}.signal i:nth-child(4){height:9px}.battery{width:17px;height:8px;border:1px solid #c9bbae;padding:1px;position:relative}.battery:after{content:"";position:absolute;right:-3px;top:2px;width:2px;height:3px;background:#c9bbae}.battery b{display:block;width:72%;height:100%;background:var(--pink)}
+.header{height:25px;flex:none;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:8px;letter-spacing:.08em;color:var(--dim)}.header strong{font-weight:500;color:var(--ink)}.header .id{color:var(--pink)}
+.art{height:clamp(170px,27vh,238px);flex:none;position:relative;margin-top:5px}#star{width:100%;height:100%;display:block;image-rendering:pixelated}.corner{position:absolute;top:10px;left:2px;width:17px;height:19px;border-top:1px solid var(--line);border-left:1px solid var(--line)}.corner.r{left:auto;right:2px;border-left:0;border-right:1px solid var(--line)}.artnote{position:absolute;left:4px;bottom:12px;font-size:6px;line-height:1.55;color:var(--dim);letter-spacing:.04em}.artnote.r{left:auto;right:4px;text-align:right}.artscan{position:absolute;left:2px;right:2px;top:-10%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(162,77,104,.2),rgba(225,211,194,.55),rgba(162,77,104,.2),transparent);opacity:0;animation:quietScan 12s ease-in-out infinite}@keyframes quietScan{0%,6%{top:-4%;opacity:0}11%{opacity:.5}45%{opacity:.28}52%,100%{top:105%;opacity:0}}
+.artbase{height:13px;flex:none;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;color:var(--dim);font-size:6px;letter-spacing:.1em}
+.channel-grid{height:58px;flex:none;display:grid;grid-template-columns:repeat(14,1fr);grid-template-rows:repeat(3,1fr);gap:4px;padding:7px 2px 6px;border-bottom:1px solid rgba(220,204,188,.16)}.channel-grid i{height:8px;align-self:center;border:1px solid rgba(220,204,188,.62);opacity:.62;position:relative}.channel-grid i.fill{background:rgba(220,204,188,.58);opacity:.8}.channel-grid i.hot{background:var(--pink);border-color:var(--pink);opacity:1}.channel-grid i:nth-child(5n):after{content:"";position:absolute;left:50%;top:100%;height:4px;border-left:1px solid rgba(220,204,188,.3)}
+.hex{height:39px;flex:none;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Share Tech Mono',monospace;font-size:12px;line-height:1.4;letter-spacing:.15em;color:#e1d5c7;white-space:nowrap}
+.dotfield{flex:1;min-height:60px;display:grid;grid-template-columns:repeat(25,1fr);grid-auto-rows:1fr;gap:4px;padding:2px 1px 7px;align-content:stretch;overflow:hidden}.dotfield i{width:2.5px;height:2.5px;border-radius:50%;background:#dfd1c1;opacity:.23;justify-self:center;align-self:center}.dotfield i.lit{opacity:.68}.dotfield i.hot{background:var(--pink);opacity:.9}
+.data-divider{height:12px;flex:none;display:grid;grid-template-columns:repeat(34,1fr);gap:3px;border-bottom:1px solid var(--line)}.data-divider i{height:6px;border:1px solid rgba(220,204,188,.6);opacity:.6;align-self:start}.data-divider i.on{background:rgba(220,204,188,.55)}.data-divider i.pink{background:var(--pink);border-color:var(--pink);opacity:1}
+.sensor-head{height:23px;flex:none;display:flex;align-items:center;justify-content:space-between;font-size:8px;letter-spacing:.1em;color:var(--ink)}.sensor-head span:last-child{color:var(--dim);font-size:6px}
+.sensor-layout{height:111px;flex:none;display:grid;grid-template-columns:minmax(0,1fr) 82px;gap:10px}.sensor-rows{display:grid;grid-template-rows:repeat(4,1fr)}.sensor-row{display:grid;grid-template-columns:15px minmax(0,1fr) 38px;align-items:center;border-top:1px solid rgba(220,204,188,.17);font-size:7px;color:#c2b4a8}.sensor-row .letter{color:var(--pink)}.sensor-row .value{font-family:'Share Tech Mono',monospace;font-size:12px;text-align:right;color:var(--ink);letter-spacing:.08em}
+.glyphs{border-left:1px solid rgba(220,204,188,.2);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1px;color:var(--ink);font-family:'Share Tech Mono',monospace}.glyphs strong{font-size:38px;line-height:.85;font-weight:400;letter-spacing:-.08em}.glyphs small{font-size:6px;color:var(--dim);letter-spacing:.1em;margin-top:6px}
+.footer{height:19px;flex:none;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:6px;letter-spacing:.06em;color:var(--dim)}.footer .state{color:var(--pink)}.home{width:62px;height:3px;background:#d7c9bc;border-radius:3px;opacity:.68;margin:7px auto 0;flex:none}
+@media(min-width:600px){.screen{height:min(900px,96svh);margin:2svh auto;border:1px solid #5b3c43;box-shadow:0 18px 65px #000}}
+@media(max-height:700px){.art{height:23vh}.sensor-layout{height:96px}.channel-grid{height:49px}.hex{height:34px}.dotfield{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.artscan{animation:none}}
+</style></head>
+<body><main class="screen">
+<div class="status"><span id="clock">9:41</span><span class="status-right"><span>BT</span><span>WiFi</span><span class="signal"><i></i><i></i><i></i><i></i></span><span class="battery"><b></b></span><span>72%</span></span></div>
+<header class="header"><span>⌜ <strong>NX / SENSOR DISTRIBUTION</strong></span><span class="id">ORBITAL—07 ⌟</span></header>
+<section class="art"><span class="corner"></span><span class="corner r"></span><canvas id="star" width="390" height="235" aria-label="Pixel particle orbital star map"></canvas><div class="artnote">MAP / NODE DISTRIBUTION<br>ORBITAL ARRAY · SEC 03</div><div class="artnote r">CORE LINK<br>STATE / NOMINAL</div><div class="artscan"></div></section>
+<div class="artbase"><span>⌗ SENSOR FIELD / GEOMETRY</span><span>FIG—01 / 07</span></div>
+<div class="channel-grid" id="channels"></div>
+<div class="hex">CJGC.ZBL.550.BRD.EBU<br>AYYU.WG0.692.APR.MEY</div>
+<div class="dotfield" id="dots"></div>
+<div class="data-divider" id="divider"></div>
+<div class="sensor-head"><span>▦ SENSOR SEC&nbsp; PID</span><span>SELF—TEST / CALIBRATED</span></div>
+<div class="sensor-layout"><div class="sensor-rows">
+<div class="sensor-row"><span class="letter">A:</span><span>Sensor</span><span class="value">3925</span></div><div class="sensor-row"><span class="letter">B:</span><span>Sensor</span><span class="value">5615</span></div><div class="sensor-row"><span class="letter">C:</span><span>Sensor</span><span class="value">7437</span></div><div class="sensor-row"><span class="letter">D:</span><span>Sensor</span><span class="value">8878</span></div>
+</div><div class="glyphs"><strong>/0</strong><strong>00</strong><small>PID / 07</small></div></div>
+<footer class="footer"><span>SELF-TEST · SENSORS CALIBRATED</span><span class="state">● N/X—03</span></footer><div class="home"></div></main>
 <script>
-const c=document.getElementById('star'),ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;
-let seed=73;function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
-const particles=Array.from({length:680},(_,i)=>({arm:i%8,r:9+rand()*100,spread:(rand()-.5)*.24,size:rand()>.82?3:2,alpha:.22+rand()*.65,hot:rand()>.91,phase:rand()*Math.PI*2,speed:.00012+rand()*.00024}));
-let frame=0,last=0;
-function draw(now=0){if(document.hidden){requestAnimationFrame(draw);return}if(now-last<33){requestAnimationFrame(draw);return}last=now;frame++;
-ctx.clearRect(0,0,360,260);const cx=180,cy=124,rotation=now*.000035;
-for(const p of particles){const a=p.arm*Math.PI/4+p.spread+rotation*(p.arm%2?1:-1)+Math.sin(now*.0007+p.phase)*.012;const d=p.r+Math.sin(now*.0011+p.phase)*1.8;const x=cx+Math.cos(a)*d,y=cy+Math.sin(a)*d;const s=p.size;const shimmer=.72+.28*Math.sin(now*.002+p.phase);ctx.fillStyle=p.hot?'rgba(166,83,112,'+shimmer+')':'rgba(224,211,194,'+(p.alpha*shimmer)+')';ctx.fillRect(Math.round(x/s)*s,Math.round(y/s)*s,s,s)}
-for(let a=0;a<8;a++){const ang=a*Math.PI/4+rotation*(a%2?1:-1);for(let d=12;d<100;d+=7){const x=cx+Math.cos(ang)*d,y=cy+Math.sin(ang)*d;ctx.fillStyle='rgba(220,205,188,'+(.16+.12*Math.sin(now*.001+a+d)+.12)+')';ctx.fillRect(Math.round(x),Math.round(y),2,2)}}
-ctx.fillStyle='#e0d2c2';ctx.fillRect(cx-2,cy-2,4,4);ctx.fillStyle='rgba(166,83,112,.8)';ctx.fillRect(cx-1,cy-1,2,2);requestAnimationFrame(draw)}
-requestAnimationFrame(draw);
-const band=document.getElementById('band');for(let i=0;i<116;i++){const e=document.createElement('i');if((i*7+Math.floor(i/29)*3)%11<5)e.className='lit';if([8,9,10,41,42,70,71,98].includes(i))e.className='hot';band.append(e)}
-const matrix=document.getElementById('matrix');for(let i=0;i<230;i++){const e=document.createElement('i');if((i*17+Math.floor(i/23)*5)%13<5)e.className='lit';if(i%61===0)e.className='hot';matrix.append(e)}
-const div=document.getElementById('divider');for(let i=0;i<29;i++){const e=document.createElement('i');if(i%5===0)e.style.background='rgba(216,200,184,.6)';div.append(e)}
-// Cosmetic activity ticks only; these are not readings from Android hardware.
-const readouts=[...document.querySelectorAll('.read strong')];setInterval(()=>{const i=Math.floor(Math.random()*4)*2;readouts[i].classList.add('pulse');setTimeout(()=>readouts[i].classList.remove('pulse'),380)},1250);
-function tick(){document.getElementById('time').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',hour12:false})}tick();setInterval(tick,15000);
-
-/* Interactive local simulation layer — not connected to Android telemetry. */
-(()=>{
-const $=id=>document.getElementById(id), log=$('eventLog');if(!log)return;
-const events=['[SYS] ORBITAL ARRAY SYNCHRONIZED','[NET] ROUTE TABLE VERIFIED / 04 NODES','[SEC] LOCAL PERIMETER INTEGRITY: OK','[IO] SENSOR MATRIX REFRESH COMPLETE','[AGT] AGENT CHANNEL STANDBY','[SYS] BACKGROUND PROCESS SCAN COMPLETE','[NET] PACKET STREAM WITHIN THRESHOLD'];
-function add(s){const t=new Date().toLocaleTimeString([],{hour12:false});log.textContent+='['+t+'] '+s+'\n';log.scrollTop=log.scrollHeight}
-add('[BOOT] NEXUS ORBITAL INTERFACE ONLINE');add('[SYS] PIXEL MATRIX INITIALIZED');add('[NET] LOCAL LINK READY');
-let n=0;setInterval(()=>{if(document.hidden)return;add(events[n++%events.length]);$('terminalStatus').textContent=events[(n-1)%events.length].replace(/^\[[^\]]+\] /,'').toLowerCase()},4700);
-$('logAction').addEventListener('click',()=>$('logOverlay').classList.add('open'));
-$('closeOverlay').addEventListener('click',()=>$('logOverlay').classList.remove('open'));
-$('clearLog').addEventListener('click',()=>{log.textContent='';add('[SYS] EVENT BUFFER CLEARED')});
-$('diagAction').addEventListener('click',()=>{add('[DIAG] SELF-TEST STARTED');$('terminalStatus').textContent='diagnostic sequence running';['CORE','MEMORY','PIXEL ARRAY','AGENT BRIDGE'].forEach((x,i)=>setTimeout(()=>add('[DIAG] '+x+' .......... OK'),500*(i+1)));setTimeout(()=>$('terminalStatus').textContent='self-test complete',2400)});
-$('scanAction').addEventListener('click',()=>{const b=$('scanAction');b.classList.add('active');$('terminalStatus').textContent='scanning local node map';add('[SCAN] LOCAL NODE MAP REQUESTED');$('scanState').textContent='SCANNING';setTimeout(()=>{b.classList.remove('active');$('scanState').textContent='SELF-TEST';$('terminalStatus').textContent='scan complete / no external links';add('[SCAN] COMPLETE — VISUAL DEMO ONLY')},2200)});
-const nums=[...document.querySelectorAll('.read strong')];setInterval(()=>{if(document.hidden)return;const el=nums[Math.floor(Math.random()*nums.length)];el.style.textShadow='0 0 8px rgba(168,78,112,.8)';setTimeout(()=>el.style.textShadow='',240)},1450);
-})();
+const $=id=>document.getElementById(id);let seed=7013;function random(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
+const canvas=$('star'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;const W=390,H=235,cx=195,cy=111;const particles=[];
+function radiusAt(a){const lobes=Math.pow((1+Math.cos(8*a))/2,2.35);return 17+79*lobes}
+for(let i=0;i<1800;i++){const a=random()*Math.PI*2,rad=Math.sqrt(random())*radiusAt(a);particles.push({a,r:rad,sz:random()>.87?2:1,alpha:.25+random()*.65,pink:random()>.963,phase:random()*6.28})}
+const stars=Array.from({length:8},(_,i)=>({a:i*Math.PI/4,r:82+random()*5}));let rotation=0,last=0;
+function paint(t){if(document.hidden){requestAnimationFrame(paint);return}if(t-last<35){requestAnimationFrame(paint);return}last=t;rotation=t*.000018;ctx.clearRect(0,0,W,H);
+for(const rr of [33,58,86])for(let a=0;a<Math.PI*2;a+=.16){const x=cx+Math.cos(a+rotation*.15)*rr,y=cy+Math.sin(a+rotation*.15)*rr*.82;ctx.fillStyle='rgba(217,199,181,.17)';ctx.fillRect(Math.round(x),Math.round(y),1,1)}
+for(const p of particles){const a=p.a+rotation,r=p.r+Math.sin(t*.0007+p.phase)*.35,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.82,flick=.65+.35*Math.sin(t*.001+p.phase);ctx.fillStyle=p.pink?'rgba(169,78,108,'+flick+')':'rgba(224,211,194,'+(p.alpha*flick)+')';ctx.fillRect(Math.round(x/p.sz)*p.sz,Math.round(y/p.sz)*p.sz,p.sz,p.sz)}
+for(const p of stars){const a=p.a+rotation,x=cx+Math.cos(a)*p.r,y=cy+Math.sin(a)*p.r*.82;ctx.fillStyle='rgba(222,208,190,.75)';ctx.fillRect(Math.round(x),Math.round(y),2,2)}
+ctx.fillStyle='#e3d5c4';ctx.fillRect(cx-2,cy-2,4,4);requestAnimationFrame(paint)}
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(paint);else{for(const p of particles){const x=cx+Math.cos(p.a)*p.r,y=cy+Math.sin(p.a)*p.r*.82;ctx.fillStyle=p.pink?'#a94e6c':'rgba(224,211,194,'+p.alpha+')';ctx.fillRect(Math.round(x),Math.round(y),p.sz,p.sz)}ctx.fillStyle='#e3d5c4';ctx.fillRect(cx-2,cy-2,4,4)}
+const channels=$('channels');for(let i=0;i<42;i++){const e=document.createElement('i');if((i*7+Math.floor(i/14)*3)%9<4)e.className='fill';if([5,6,18,19,32,33].includes(i))e.className='hot';channels.append(e)}
+const dots=$('dots');for(let i=0;i<250;i++){const e=document.createElement('i');if((i*17+Math.floor(i/25)*3)%11<4)e.className='lit';if([18,77,139,204].includes(i))e.className='hot';dots.append(e)}
+const divider=$('divider');for(let i=0;i<34;i++){const e=document.createElement('i');if(i%4===0)e.className='on';if([7,8,24].includes(i))e.className='pink';divider.append(e)}
+function tick(){$('clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',hour12:false})}tick();setInterval(tick,15000);
 </script></body></html>
