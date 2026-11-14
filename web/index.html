@@ -19,6 +19,37 @@
 @media(max-width:680px){.shell{padding:12px 10px 22px;gap:10px}.layout{grid-template-columns:1fr}.right{display:grid;grid-template-columns:1fr 1fr;align-items:start}.right .activity{grid-column:1/-1}.terminal{min-height:300px}.topright{font-size:8px}.subtitle{font-size:8px}}
 @media(max-width:390px){.right{display:flex}.topright .clock{display:none}.statrow{grid-template-columns:66px 1fr 32px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+
+/* NEXUS CORE visual upgrade */
+:root{--green:#a8ffb8;--bright:#e2ffe8;--muted:#84998b;--line:#263d2e;--panel:#0b120d}
+body{background:radial-gradient(ellipse at 78% 0%,#16332155,transparent 38%),radial-gradient(ellipse at 0% 70%,#101e1655,transparent 42%),#070a08;letter-spacing:.015em}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:4;opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,#000 4px);mix-blend-mode:soft-light}
+main.shell{max-width:1240px;padding-top:22px;gap:16px}
+.top{border-bottom-color:#35523d;padding-bottom:15px}
+.mark{width:36px;height:36px;font-weight:700;box-shadow:0 0 24px #78ff9a22,inset 0 0 12px #78ff9a16}
+.brandname{font-size:17px;letter-spacing:.2em}
+.subtitle{font-size:9px;letter-spacing:.19em}
+.sysline{border:1px solid #1b3022;background:linear-gradient(90deg,#0e1811,#0a100c);padding:10px 13px;font-size:9px;letter-spacing:.09em}
+.layout{grid-template-columns:1.25fr .75fr;gap:15px}
+.panel{border-color:#263e2e;background:linear-gradient(145deg,#101a13f5,#090f0bf7);box-shadow:0 8px 30px #0003}
+.panel:before{content:"";position:absolute;left:0;top:0;width:24px;height:1px;background:var(--green);opacity:.6}
+.panelhead{height:40px;background:#0d1711;border-bottom-color:#253a2b;font-size:9px;letter-spacing:.15em}
+.panelhead strong{color:#d3ead8}
+.overview{padding:19px 17px 15px}
+.eyebrow{font-size:9px;letter-spacing:.2em;color:#83b992}
+.hero{font-size:clamp(27px,5vw,46px);font-weight:600;letter-spacing:-.075em;margin:11px 0 8px;text-shadow:0 0 28px #8affaa25}
+.desc{font-size:11px;line-height:1.8;max-width:58ch}
+.metrics{margin-top:19px}.metric{padding-top:13px}.metric label{font-size:8px;letter-spacing:.13em}.metric strong{font-size:21px}.metric small{font-size:8px}
+.terminal{min-height:340px}.terminalbody{padding:14px 15px;gap:9px;font-size:11px;line-height:1.7}.time{color:#617a68}.commandline{padding:13px 15px;background:#0a130d}.commandline input{font-size:11px}
+.stats{padding:15px}.statrow{grid-template-columns:84px 1fr 40px;gap:10px;margin:14px 0;font-size:10px}.track{height:5px;background:#1a2c20}.track i{background:linear-gradient(90deg,#398c50,#a5f3b5);box-shadow:0 0 12px #8effa044}
+.quick{border-color:#263d2e;background:linear-gradient(145deg,#132018,#0b120d);padding:12px;min-height:52px;transition:transform .18s,border-color .18s,background .18s}.quick:hover{transform:translateY(-2px);border-color:#6bb77b;background:#17291d}.quick span{font-size:8px}
+.event{padding:11px 0;font-size:10px}.event time{font-size:8px}.event em{letter-spacing:.1em}
+.bottom{font-size:8px;letter-spacing:.09em}
+.pulse{width:7px;height:7px}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+.scanbeam{position:fixed;left:0;right:0;height:100px;top:0;pointer-events:none;z-index:3;background:linear-gradient(transparent,#75ff9510,transparent);animation:scanline 12s linear infinite;opacity:.45}
+@media(max-width:680px){main.shell{padding:12px 10px 22px;gap:11px}.layout{grid-template-columns:1fr;gap:11px}.overview{padding:16px 13px}.hero{font-size:31px}.terminalbody{font-size:10px}.stats{padding:12px}.quick{padding:10px}}
+@media(prefers-reduced-motion:reduce){.scanbeam{display:none}}
 </style>
 </head>
 <body><div class="scan"></div><main class="shell">
@@ -41,4 +72,12 @@ const commands={help:()=>{line('AVAILABLE: help, status, scan, processes, whoami
 function execute(raw){const v=raw.trim().toLowerCase();if(!v)return;line('operator@nexus:~$ '+raw,'prompt');if(commands[v])commands[v]();else line('command not found: '+raw+' — type help','warn')}
 $('cmd').addEventListener('submit',e=>{e.preventDefault();execute($('input').value);$('input').value=''});document.querySelectorAll('[data-cmd]').forEach(b=>b.addEventListener('click',()=>{execute(b.dataset.cmd)}));
 setInterval(()=>{for(const [id,min,max] of [['cpu',18,68],['mem',55,70],['net',5,42]]){const v=Math.round(min+Math.random()*(max-min));$(id).style.width=v+'%';$(id+'v').textContent=v+'%'}},2600);
+
+const palette=document.getElementById('nexusPalette'),search=document.getElementById('nexusSearch');
+function showPalette(){palette.style.display='grid';search.value='';search.focus()}
+function hidePalette(){palette.style.display='none'}
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();showPalette()}if(e.key==='Escape')hidePalette()});
+palette.addEventListener('click',e=>{if(e.target===palette)hidePalette()});
+search.addEventListener('input',()=>{const q=search.value.toLowerCase();document.querySelectorAll('[data-run]').forEach(b=>b.style.display=b.textContent.toLowerCase().includes(q)?'block':'none')});
+document.querySelectorAll('[data-run]').forEach(b=>{b.style.cssText='width:100%;text-align:left;padding:11px;background:#101b13;border:1px solid #203729;color:#bfe8c7;font:10px IBM Plex Mono,monospace;cursor:pointer';b.addEventListener('click',()=>{hidePalette();const input=document.getElementById('input');input.value=b.dataset.run;document.getElementById('cmd').requestSubmit()})});
 </script></body></html>
