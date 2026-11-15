@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#020704">
+<title>UACD - Main</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+:root{--bg:#020704;--fg:#a5ffb3;--bright:#dcffe1;--green:#57ff79;--dim:#3d9953;--faint:#1d512c;--cyan:#6deaff;--amber:#ffd36a;--red:#ff6262;--mono:'Share Tech Mono',monospace;--display:'VT323',monospace}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font-family:var(--mono)}body{overflow-x:hidden;background-image:radial-gradient(ellipse at 50% 30%,#06200d 0,#020704 60%);font-size:13px}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;background:repeating-linear-gradient(0deg,transparent 0 2px,#0008 3px);opacity:.28}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;box-shadow:inset 0 0 100px 24px #000;opacity:.8}
+#rain{position:fixed;inset:0;width:100%;height:100%;opacity:.11;pointer-events:none;z-index:0}
+.frame{position:relative;z-index:1;width:min(1500px,100%);margin:auto;padding:13px 15px 20px}
+header{height:52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--dim);padding:0 4px 10px;gap:12px}
+.brand{display:flex;align-items:center;gap:13px}.sigil{font-family:var(--display);font-size:35px;line-height:1;color:var(--green);text-shadow:0 0 15px #57ff7970}.wordmark{font-family:var(--display);font-size:31px;letter-spacing:4px;color:var(--bright);line-height:.8;text-shadow:0 0 14px #57ff7940}.wordmark small{font:10px var(--mono);letter-spacing:2px;color:var(--dim);display:block;margin-top:7px}
+.header-right{display:flex;align-items:center;gap:20px;color:var(--dim);font-size:11px;text-align:right}.live{color:var(--green)}.led{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);margin-right:7px;animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:.2}}
+.mast{display:flex;justify-content:space-between;gap:12px;padding:8px 4px 10px;color:var(--dim);font-size:10px;letter-spacing:1px;border-bottom:1px solid #14351e}.mast b{font-weight:400;color:var(--fg)}.grid{display:grid;grid-template-columns:1.08fr 1fr .9fr;gap:10px;margin-top:10px;align-items:stretch}.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.box{border:1px solid var(--dim);background:rgba(1,9,4,.84);position:relative;min-width:0;overflow:hidden;box-shadow:0 0 15px #0008,inset 0 0 20px #0b2b1120}
+.box:before,.box:after{content:"";position:absolute;width:8px;height:8px;pointer-events:none;z-index:2}.box:before{top:-1px;left:-1px;border-top:2px solid var(--green);border-left:2px solid var(--green)}.box:after{bottom:-1px;right:-1px;border-bottom:2px solid var(--green);border-right:2px solid var(--green)}
+.title{height:27px;border-bottom:1px solid #245b32;display:flex;align-items:center;justify-content:space-between;padding:0 9px;color:var(--bright);font-size:11px;letter-spacing:1.3px;background:linear-gradient(90deg,#0a2410,#041009)}.title span:last-child{font-size:9px;color:var(--dim)}.content{padding:10px}
+.world{height:270px;position:relative;background:radial-gradient(ellipse at 50% 50%,#0a2a1433,transparent 70%)}.world svg{width:100%;height:100%;display:block}.map-label{position:absolute;font-size:9px;color:var(--cyan);text-shadow:0 0 8px #6deaff}.map-caption{position:absolute;bottom:7px;left:9px;color:var(--dim);font-size:9px;letter-spacing:1px}
+.node{fill:var(--green);filter:drop-shadow(0 0 4px var(--green))}.link{stroke:var(--green);stroke-width:1;opacity:.65;stroke-dasharray:5 5;animation:dash 7s linear infinite}.link.alt{stroke:var(--cyan);opacity:.55;animation-duration:11s}@keyframes dash{to{stroke-dashoffset:-100}}
+.monitor-row{display:grid;grid-template-columns:63px 1fr 35px;gap:8px;align-items:center;margin:11px 0;font-size:11px}.monitor-row label{color:var(--dim)}.bar{height:7px;border:1px solid #1b5a2d;background:#031006;position:relative}.bar i{display:block;height:100%;background:linear-gradient(90deg,#178c38,var(--green));box-shadow:0 0 9px #57ff7970}.monitor-row b{text-align:right;font-weight:400;color:var(--bright)}
+.spark{height:28px;width:100%;display:block;margin-top:4px}
+.code{font-size:10px;line-height:1.6;white-space:pre;overflow:hidden;color:#70bd7d}.code .c{color:var(--cyan)}.code .a{color:var(--amber)}.code .w{color:var(--bright)}
+.log{height:190px;overflow:hidden;font-size:10px;line-height:1.65}.logline{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ts{color:#427b4d}.ok{color:var(--green)}.warn{color:var(--amber)}.info{color:var(--cyan)}
+.countdown{text-align:center;padding:5px 0 10px}.digits{font-family:var(--display);font-size:clamp(52px,6vw,86px);line-height:1;color:var(--green);text-shadow:0 0 22px #57ff7977;letter-spacing:4px}.countlabel{color:var(--dim);font-size:9px;letter-spacing:2px;margin-top:5px}
+.hex{font-size:10px;line-height:1.55;color:#65b876;white-space:pre;overflow:hidden}.hex .offset{color:#367846}.hex .ascii{color:#a8e6b2}
+.progress-item{margin:10px 0}.progress-meta{display:flex;justify-content:space-between;color:var(--dim);font-size:10px;margin-bottom:4px}.progress-meta b{color:var(--fg);font-weight:400}.progress-track{height:6px;background:#06140a;border:1px solid #245b32}.progress-track i{display:block;height:100%;background:var(--green);box-shadow:0 0 8px #57ff7970;animation:grow 1.6s ease-out}@keyframes grow{from{width:0}}
+.terminal{min-height:225px;display:flex;flex-direction:column}.terminal-output{padding:8px 10px;flex:1;min-height:160px;max-height:220px;overflow:auto;font-size:11px;line-height:1.65}.termline{overflow-wrap:anywhere}.prompt{color:var(--green)}.term-input{display:flex;align-items:center;gap:7px;border-top:1px solid #245b32;padding:8px 10px;background:#041008}.term-input label{color:var(--green);white-space:nowrap}.term-input input{min-width:0;flex:1;background:none;border:0;outline:0;color:var(--bright);font:11px var(--mono)}.term-input button{font:10px var(--mono);color:var(--green);background:#08200f;border:1px solid #28683a;padding:5px 8px}
+.footer{border-top:1px solid var(--dim);margin-top:10px;padding:9px 3px 0;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#367846;font-size:9px;letter-spacing:1px}.footer b{color:#78c986;font-weight:400}
+@media(max-width:980px){.grid{grid-template-columns:1fr 1fr}.col:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}.col:last-child .box:last-child{grid-column:1/-1}}
+@media(max-width:620px){.frame{padding:9px 8px 16px}header{height:auto;min-height:48px}.header-right{gap:8px;font-size:9px}.mast{font-size:8px;flex-wrap:wrap}.grid{grid-template-columns:1fr}.col:last-child{grid-column:auto;display:flex}.col:last-child .box:last-child{grid-column:auto}.world{height:230px}.digits{font-size:66px}.footer{font-size:8px}.title{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important}}
+
+/* LANDSCAPE TERMINAL RECONSTRUCTION */
+:root{--bg:#030806;--fg:#9bd8a5;--bright:#d9ffe0;--green:#66ff83;--dim:#568d61;--faint:#1b4224;--cyan:#8be7ed}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-size:clamp(10px,.78vw,13px);background:#020704}
+.frame{width:100%;height:100dvh;max-width:none;margin:0;padding:clamp(7px,1vw,15px);display:flex;flex-direction:column;overflow:hidden}
+header{flex:0 0 42px;height:42px;padding:0 4px 7px}
+.brand .sigil{font-size:29px}.wordmark{font-size:27px}.wordmark small{font-size:8px;margin-top:5px}
+.header-right{font-size:9px;gap:15px}
+.mast{flex:0 0 25px;padding:5px 4px;font-size:9px}
+.grid{flex:1;min-height:0;grid-template-columns:1.08fr 1fr .92fr;gap:7px;margin-top:7px}
+.col{min-height:0;gap:7px}
+.box{min-height:0;display:flex;flex-direction:column;border-color:#39744a;background:rgba(2,10,5,.93);box-shadow:none}
+.title{flex:0 0 23px;height:23px;font-size:9px;padding:0 7px}
+.content{padding:7px;min-height:0}
+.world{height:auto;flex:1;min-height:120px}
+.col:first-child .box:first-child{flex:1.35}
+.col:first-child .box:nth-child(2){flex:.78}
+.col:first-child .box:nth-child(3){flex:.7}
+.col:nth-child(2) .box:first-child{flex:1.05}
+.col:nth-child(2) .box:nth-child(2){flex:.62}
+.col:nth-child(2) .box:nth-child(3){flex:.72}
+.col:last-child .box:first-child{flex:.95}
+.col:last-child .box:nth-child(2){flex:1.1}
+.col:last-child .box:nth-child(3){flex:.55}
+.log{height:auto;flex:1;font-size:clamp(8px,.66vw,10px);line-height:1.5}
+.code{font-size:clamp(8px,.67vw,10px);line-height:1.45}
+.hex{font-size:clamp(8px,.65vw,10px);line-height:1.48}
+.terminal{flex:1}
+.terminal-output{min-height:0;max-height:none;font-size:10px;padding:7px}
+.countdown{padding:3px 0 6px}
+.digits{font-size:clamp(43px,5.1vw,75px)}
+.footer{flex:0 0 22px;margin-top:6px;padding:5px 3px 0;font-size:8px}
+.monitor-row{margin:7px 0;font-size:9px;grid-template-columns:55px 1fr 29px}
+.spark{height:20px}
+.progress-item{margin:7px 0}
+#fullscreen{font:9px var(--mono);padding:5px 8px;background:#07170b;color:var(--green);border:1px solid #39744a}
+#keydeck{flex:0 0 34px;display:flex;align-items:center;justify-content:center;gap:7px;border-top:1px solid #245b32;margin-top:5px;padding-top:5px}
+#keydeck button{height:25px;min-width:42px;padding:0 10px;border:1px solid #39744a;background:#06140a;color:#a5eab0;font:10px var(--mono);letter-spacing:.5px}
+#keydeck button:active{background:#174d27;color:white}
+#rotate{display:none}
+@media(orientation:portrait){
+ html,body{overflow:hidden}
+ .frame{filter:blur(3px);pointer-events:none}
+ #rotate{display:flex;position:fixed;z-index:30;inset:0;background:#020704;color:#a5ffb3;align-items:center;justify-content:center;text-align:center;padding:28px;flex-direction:column;gap:14px;font-family:var(--mono)}
+ #rotate .rotate-icon{font-size:50px;color:#66ff83}
+ #rotate strong{font-size:17px;letter-spacing:2px}
+ #rotate span{font-size:11px;line-height:1.7;color:#679b71;max-width:260px}
+ #rotate button{background:#07170b;border:1px solid #39744a;color:#9bffad;padding:10px 18px;font:11px var(--mono)}
+}
+@media(orientation:landscape) and (max-height:480px){
+ header{flex-basis:32px;height:32px}.brand .sigil{font-size:23px}.wordmark{font-size:21px}.wordmark small{font-size:7px}
+ .mast{flex-basis:20px;font-size:8px}.grid{gap:5px;margin-top:5px}.col{gap:5px}.title{flex-basis:19px;height:19px;font-size:8px}
+ #keydeck{flex-basis:28px;margin-top:3px;padding-top:3px}#keydeck button{height:21px}
+ .footer{display:none}.world{min-height:85px}.content{padding:5px}.log{font-size:8px}.code,.hex{font-size:7.5px}
+}
+
+</style>
+</head>
+<body><canvas id="rain"></canvas><div class="frame">
+<header><div class="brand"><div class="sigil">⌁</div><div class="wordmark">NEXUS<small>FUTURE SYSTEM // COMMAND INTERFACE</small></div></div><div class="header-right"><div><span class="led"></span><span class="live">SYSTEM ONLINE</span><br><span id="clock">00:00:00</span></div><div>BUILD <b style="color:var(--fg)">04.27</b><br>MODE <b style="color:var(--fg)">OPERATOR</b></div><button id="fullscreen" type="button">⛶ FULLSCREEN</button></div></header>
+<div class="mast"><span>HOST: <b>NX-LOCAL</b></span><span>SESSION: <b>ACTIVE</b></span><span>NETWORK: <b>SIMULATED</b></span><span>UPTIME: <b id="uptime">00:00:00</b></span><span>SECURITY: <b class="live">NOMINAL</b></span></div>
+<main class="grid">
+<section class="col">
+<div class="box"><div class="title"><span>GLOBAL NETWORK // NODE MAP</span><span class="live">● SCANNING</span></div><div class="world"><svg viewBox="0 0 520 250" role="img" aria-label="Decorative network map visualization">
+<defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#174a27" stroke-width=".5" opacity=".55"/></pattern></defs><rect width="520" height="250" fill="url(#grid)"/>
+<g fill="#0a3b1c" stroke="#2b8c43" stroke-width=".8" opacity=".72"><path d="M36 57l17-17 32-7 25 12 14 23-8 19-19 4-7 20-22 7-11-14-18-2-10-19z"/><path d="M126 128l22 4 17 22-7 31-17 35-13-18-9-31z"/><path d="M228 50l20-11 31 4 17 12 29-1 23 15-5 20-23 8-12 18-29-4-13-18-22 1-17-17z"/><path d="M260 121l25-9 23 15 9 33-14 47-22 22-17-26-11-35z"/><path d="M355 54l35-16 42 9 39 21-9 25-34 9-16 25-31-6-12-25-25-10z"/><path d="M421 150l27-9 25 14-5 22-29 13-19-15z"/></g>
+<g fill="none"><path class="link" d="M79 76Q170 5 265 75T418 77"/><path class="link alt" d="M79 76Q140 170 150 175T265 75"/><path class="link" d="M265 75Q325 145 385 100T450 163"/><path class="link alt" d="M150 175Q285 220 385 100"/><path class="link" d="M79 76Q270 240 450 163"/></g>
+<g><circle class="node" cx="79" cy="76" r="3.5"/><circle class="node" cx="265" cy="75" r="4"/><circle class="node" cx="418" cy="77" r="3.5"/><circle class="node" cx="150" cy="175" r="3"/><circle class="node" cx="385" cy="100" r="3"/><circle class="node" cx="450" cy="163" r="3"/></g>
+<g fill="#7beaff" font-family="Share Tech Mono" font-size="9"><text x="55" y="65">US-EAST</text><text x="239" y="61">EU-CENTRAL</text><text x="394" y="64">ASIA-PAC</text><text x="123" y="193">SA-NODE</text><text x="392" y="114">SG-04</text><text x="435" y="180">JP-01</text></g></svg><div class="map-caption">6 NODES / 5 ROUTES / VISUAL SIMULATION ONLY</div></div></div>
+<div class="box"><div class="title"><span>SYSTEM MONITORS</span><span>LOCAL TELEMETRY // DEMO</span></div><div class="content">
+<div class="monitor-row"><label>CPU LOAD</label><div class="bar"><i id="cpu" style="width:32%"></i></div><b id="cpuv">32%</b></div>
+<div class="monitor-row"><label>MEMORY</label><div class="bar"><i id="mem" style="width:61%"></i></div><b id="memv">61%</b></div>
+<div class="monitor-row"><label>NETWORK</label><div class="bar"><i id="net" style="width:18%"></i></div><b id="netv">18%</b></div>
+<svg class="spark" viewBox="0 0 420 30" preserveAspectRatio="none"><path d="M0 22 L20 18 40 21 60 8 80 15 100 10 120 19 140 4 160 12 180 8 200 20 220 11 240 14 260 3 280 12 300 9 320 18 340 5 360 13 380 8 400 16 420 6" fill="none" stroke="#57ff79" stroke-width="1.4"/><path d="M0 22 L20 18 40 21 60 8 80 15 100 10 120 19 140 4 160 12 180 8 200 20 220 11 240 14 260 3 280 12 300 9 320 18 340 5 360 13 380 8 400 16 420 6 L420 30H0Z" fill="#57ff79" opacity=".08"/></svg></div></div>
+<div class="box"><div class="title"><span>OPERATION QUEUE</span><span class="live">● 3 ACTIVE</span></div><div class="content">
+<div class="progress-item"><div class="progress-meta"><span>SYNCING NODES</span><b>84%</b></div><div class="progress-track"><i style="width:84%"></i></div></div>
+<div class="progress-item"><div class="progress-meta"><span>PACKET ANALYSIS</span><b>62%</b></div><div class="progress-track"><i style="width:62%"></i></div></div>
+<div class="progress-item"><div class="progress-meta"><span>ENCRYPTION CHECK</span><b>100%</b></div><div class="progress-track"><i style="width:100%"></i></div></div></div></div>
+</section>
+<section class="col">
+<div class="box"><div class="title"><span>LIVE SYSTEM LOG</span><span class="live">● STREAMING</span></div><div class="content log" id="logs">
+<div class="logline"><span class="ts">[21:04:12]</span> <span class="ok">[OK]</span> kernel interface initialized</div><div class="logline"><span class="ts">[21:04:13]</span> <span class="info">[INFO]</span> loading node registry...</div><div class="logline"><span class="ts">[21:04:13]</span> <span class="ok">[OK]</span> 6 simulated nodes online</div><div class="logline"><span class="ts">[21:04:14]</span> <span class="warn">[WARN]</span> external telemetry unavailable</div><div class="logline"><span class="ts">[21:04:14]</span> <span class="ok">[OK]</span> local session established</div><div class="logline"><span class="ts">[21:04:15]</span> <span class="info">[INFO]</span> route visualization active</div><div class="logline"><span class="ts">[21:04:16]</span> <span class="ok">[OK]</span> monitor daemon ready</div><div class="logline"><span class="ts">[21:04:17]</span> <span class="info">[INFO]</span> waiting for operator input...</div></div></div>
+<div class="box"><div class="title"><span>COUNTDOWN // MISSION CLOCK</span><span>LOCAL TIMER</span></div><div class="content countdown"><div class="digits" id="timer">00:00:00</div><div class="countlabel">SESSION ELAPSED TIME</div></div></div>
+<div class="box"><div class="title"><span>SOURCE STREAM // MODULE 07</span><span class="live">● DECODING</span></div><div class="content code"><span class="c">const</span> <span class="w">nexus</span> = <span class="c">async</span> () =&gt; {
+  <span class="c">await</span> system.initialize();
+  <span class="c">const</span> nodes = <span class="c">await</span> network.discover();
+  <span class="a">// visual telemetry only</span>
+  <span class="c">return</span> nodes.map(node =&gt; ({
+    id: node.identifier,
+    state: <span class="w">'CONNECTED'</span>,
+    secure: <span class="c">true</span>
+  }));
+};
+<span class="w">nexus</span>().then(renderInterface);<span class="live"> ▌</span></div></div>
+</section>
+<section class="col">
+<div class="box"><div class="title"><span>HEX DUMP // DATA STREAM</span><span>BUFFER 0x04A2</span></div><div class="content hex" id="hex"><span class="offset">0000</span>  4E 45 58 55 53 20 43 4F 52 45 20 53 59 53 54 45 <span class="ascii">NEXUS CORE SYSTE</span>
+<span class="offset">0010</span>  4D 20 49 4E 49 54 20 2D 3E 20 4F 4B 00 01 02 03 <span class="ascii">M INIT -> OK....</span>
+<span class="offset">0020</span>  7A 31 9F 2C 11 08 A4 5D 6E 72 00 3F 8C 21 6A 90 <span class="ascii">z1.,...]nr.?.!j.</span>
+<span class="offset">0030</span>  4E 4F 44 45 5F 52 45 47 49 53 54 52 59 00 00 01 <span class="ascii">NODE_REGISTRY...</span>
+<span class="offset">0040</span>  A1 07 4B 2F 90 13 6D 8C 31 7E F0 2A 09 11 44 5B <span class="ascii">..K/..m.1~.*..D[</span>
+<span class="offset">0050</span>  53 45 53 53 49 4F 4E 5F 41 43 54 49 56 45 00 00 <span class="ascii">SESSION_ACTIVE..</span>
+<span class="offset">0060</span>  0F A2 77 1C 09 5B 33 81 6D 0E 4A 20 93 17 C2 6F <span class="ascii">..w..[3.m.J ...o</span>
+<span class="offset">0070</span>  52 4F 55 54 45 5F 4D 41 50 00 01 02 03 04 05 06 <span class="ascii">ROUTE_MAP.......</span></div></div>
+<div class="box"><div class="title"><span>TERMINAL // COMMAND INPUT</span><span>LOCAL SHELL</span></div><div class="terminal"><div class="terminal-output" id="out"><div class="termline"><span class="ok">NEXUS shell v4.27 initialized.</span></div><div class="termline">Type <span class="info">help</span> to display command index.</div><div class="termline warn">Demo environment. Commands do not access device or network.</div></div><form class="term-input" id="form"><label>root@nexus:~#</label><input id="cmd" autocomplete="off" spellcheck="false" placeholder="enter command..."><button>RUN</button></form></div></div>
+<div class="box"><div class="title"><span>SECURITY STATUS</span><span class="live">● NOMINAL</span></div><div class="content" style="font-size:11px;line-height:1.9"><div>FIREWALL <span style="float:right" class="ok">ACTIVE*</span></div><div>ENCRYPTION <span style="float:right" class="ok">AES-256*</span></div><div>THREAT LEVEL <span style="float:right" class="ok">LOW*</span></div><div style="color:var(--dim);font-size:9px;margin-top:5px">* VISUAL PLACEHOLDER STATUS</div></div></div>
+</section>
+</main>
+<div id="keydeck" aria-label="Terminal control keys"><button data-key="ESC">ESC</button><button data-key="SPACE">Ⅱ / SPACE</button><button data-key="+">＋ SPEED</button><button data-key="-">－ SPEED</button><button data-key="r">R RESET</button><button data-key="?">? HELP</button></div>
+<footer class="footer"><span>NEXUS FUTURE SYSTEM <b>// OPERATOR CONSOLE</b></span><span>VISUAL SIMULATION · NO REAL NETWORK ACCESS</span><span id="date">--</span></footer>
+</div>
+<div id="rotate"><div class="rotate-icon">↻</div><strong>ROTATE DEVICE</strong><span>NEXUS is designed as a wide-screen operator terminal. Turn your phone sideways for the full interface.</span><button id="rotate-fullscreen">TRY FULLSCREEN</button></div>
+<script>
+const $=id=>document.getElementById(id);
+const start=Date.now();
+function tick(){const d=new Date();$('clock').textContent=d.toLocaleTimeString('en-GB',{hour12:false});$('date').textContent=d.toISOString().slice(0,10);const s=Math.floor((Date.now()-start)/1000);const t=[Math.floor(s/3600),Math.floor(s/60)%60,s%60].map(n=>String(n).padStart(2,'0')).join(':');$('uptime').textContent=t;$('timer').textContent=t}
+tick();setInterval(tick,1000);
+function addLog(kind,msg){const el=document.createElement('div');el.className='logline';const ts=document.createElement('span');ts.className='ts';ts.textContent='['+new Date().toLocaleTimeString('en-GB',{hour12:false})+'] ';const k=document.createElement('span');k.className=kind;k.textContent=kind==='ok'?'[OK] ':kind==='warn'?'[WARN] ':'[INFO] ';el.append(ts,k,document.createTextNode(msg));$('logs').append(el);while($('logs').children.length>14)$('logs').firstElementChild.remove()}
+setInterval(()=>{[['cpu',20,70],['mem',48,76],['net',8,56]].forEach(([id,min,max])=>{const n=Math.round(min+Math.random()*(max-min));$(id).style.width=n+'%';$(id+'v').textContent=n+'%'})},2400);
+const commands={
+help(){write('COMMANDS: help / status / nodes / scan / clear / time / about','info')},
+status(){write('SESSION: ACTIVE | NODES: 06 | THREAT: LOW (DEMO)','ok');write('All system values shown are illustrative placeholders.')},
+nodes(){write('NODE-01 US-EAST   ONLINE','ok');write('NODE-02 EU-CENTRAL ONLINE','ok');write('NODE-03 ASIA-PAC  ONLINE','ok');write('NODE-04 SA-NODE   ONLINE','ok');write('NODE-05 SG-04      ONLINE','ok');write('NODE-06 JP-01      ONLINE','ok')},
+scan(){write('Starting visual route scan...','info');addLog('info','operator requested route scan');setTimeout(()=>{write('6 simulated nodes / 5 routes / 0 alerts','ok');addLog('ok','visual route scan completed')},700)},
+time(){write(new Date().toString(),'info')},
+about(){write('NEXUS FUTURE SYSTEM // browser interface prototype','info')},
+clear(){$('out').innerHTML='';write('Terminal buffer cleared.','ok')}
+};
+function write(text,cls=''){const el=document.createElement('div');el.className='termline '+cls;el.textContent=text;$('out').append(el);$('out').scrollTop=$('out').scrollHeight}
+$('form').addEventListener('submit',e=>{e.preventDefault();const value=$('cmd').value.trim();if(!value)return;write('root@nexus:~# '+value,'prompt');const fn=commands[value.toLowerCase()];if(fn)fn();else write('Unknown command: '+value+' — type help','warn');$('cmd').value=''});
+
+const fsButton=$('fullscreen');
+async function enterFullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock){try{await screen.orientation.lock('landscape')}catch(e){}}}catch(e){write('Fullscreen is unavailable in this browser.','warn')}}
+fsButton.addEventListener('click',enterFullscreen);
+$('rotate-fullscreen').addEventListener('click',enterFullscreen);
+document.addEventListener('fullscreenchange',()=>{fsButton.textContent=document.fullscreenElement?'⛶ EXIT FULLSCREEN':'⛶ FULLSCREEN';if(!document.fullscreenElement&&screen.orientation?.unlock)screen.orientation.unlock()});
+let speed=1;
+function keyAction(key){
+ if(key==='ESC'){if(document.fullscreenElement)document.exitFullscreen();else $('cmd').blur();return}
+ if(key==='SPACE'){write('DISPLAY PAUSE / RESUME CONTROL','info');return}
+ if(key==='+'){speed=Math.min(4,speed+1);write('VISUAL SPEED: '+speed+'x','info');return}
+ if(key==='-'){speed=Math.max(1,speed-1);write('VISUAL SPEED: '+speed+'x','info');return}
+ if(key==='r'){write('SESSION DISPLAY RESET','ok');return}
+ if(key==='?'){commands.help();return}
+}
+document.querySelectorAll('#keydeck button').forEach(b=>b.addEventListener('click',()=>keyAction(b.dataset.key)));
+document.addEventListener('keydown',e=>{if(['Escape',' ','+','-','r','?'].includes(e.key)&&document.activeElement!==$('cmd')){e.preventDefault();keyAction(e.key==='Escape'?'ESC':e.key===' '?'SPACE':e.key)}});
+
+const c=$('rain'),ctx=c.getContext('2d');let drops=[];function resize(){c.width=innerWidth/2;c.height=innerHeight/2;const n=Math.floor(c.width/15);drops=Array.from({length:n},()=>Math.random()*c.height/14)}resize();addEventListener('resize',resize);function rain(){ctx.fillStyle='rgba(2,7,4,.12)';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#42ff65';ctx.font='12px monospace';for(let i=0;i<drops.length;i++){const ch=String.fromCharCode(0x30a0+Math.random()*96);ctx.fillText(ch,i*15,drops[i]*14);if(drops[i]*14>c.height&&Math.random()>.975)drops[i]=0;drops[i]+=.45}requestAnimationFrame(rain)}rain();
+</script>
+</body></html>
