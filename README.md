@@ -6,6 +6,8 @@ NEXUS is a launcher and control surface built on top of the phone's existing And
 
 Read the current technical specification in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). It covers the USER_SPACE / AGENT_SPACE model, Work Profile feasibility, Shizuku and Termux boundaries, resource-management limits, device audit commands, safety rules and staged implementation plan.
 
+A read-only Termux audit script is available at [`scripts/device-audit.sh`](scripts/device-audit.sh). It reports device/build properties, memory, `/data` storage, package-manager profile features and non-authoritative boot-state hints. It makes no changes.
+
 ## Current implementation status
 
 - The Android app is currently a WebView-based UI shell loading a local HTML asset.
