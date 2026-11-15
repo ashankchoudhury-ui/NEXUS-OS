@@ -84,8 +84,9 @@ Android's DPC documentation specifically says to check `FEATURE_MANAGED_USERS` b
 **Can do, if supported and properly provisioned:**
 - Keep separate app instances, accounts and app-private data for work-profile apps.
 - Install and manage apps in the managed profile through its profile-owner/DPC.
-- Pause the whole Work Profile. When paused, its apps stop running and its notifications stop too.
-- Apply certain profile-scoped policies.
+- Pause the whole Work Profile. Android quiet mode stops its apps from running, generating notifications, using network data or consuming battery.
+- Apply certain profile-scoped policies. A profile owner can suspend packages inside its managed profile; suspended apps cannot launch and their notifications are hidden.
+- If NEXUS is actually selected as the **foreground default Home launcher**, it can request Work Profile quiet-mode changes through `UserManager.requestQuietModeEnabled()`. This is the realistic fast-switch mechanism; it is not available to an arbitrary ordinary app. Android may require the user's profile credential when turning the profile back on.
 
 **Cannot safely promise:**
 - Several arbitrary independent profiles on every Android device.
@@ -93,7 +94,7 @@ Android's DPC documentation specifically says to check `FEATURE_MANAGED_USERS` b
 - That pausing AGENT_SPACE preserves notifications from apps inside it. It does not: paused work apps do not run or notify.
 - That Work Profile gives NEXUS control over the primary profile's apps.
 
-A managed profile is the strongest realistic route to genuine USER_SPACE/AGENT_SPACE separation without rooting. First test support with Android's documented feature check. Do not provision it blindly.
+A managed profile is the strongest realistic route to genuine USER_SPACE/AGENT_SPACE separation without rooting. First test support with Android's documented `FEATURE_MANAGED_USERS` check and verify that the managed-profile provisioning activity resolves. The provisioning flow requires a proper DPC/profile-owner component and Android may require device encryption; a failed or cancelled provisioning attempt must leave the primary user intact. Do not provision it blindly.
 
 ### Shizuku / ADB shell
 
